@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\tbl_students;
-use App\Models\tbl_requests;
+use App\Models\tbl_staff;
 use Illuminate\Support\Facades\Hash;
 
 class MainController extends Controller
@@ -16,20 +16,30 @@ class MainController extends Controller
     function check(Request $request)
     {
         //Validate requests
-        $request->validate([
+        $request->alidate([
             'email' => 'required|email',
             'password' => 'required|min:5|max:12'
         ]);
 
-        $userInfo = tbl_students::where('stud_email', '=', $request->email)->first();
+        $studentInfo = tbl_students::where('stud_email', '=', $request->email)->first();
 
-        if (!$userInfo) {
-            return back()->with('fail', 'We do not recognize your email address');
+        if (!$studentInfo) {
+            $staffInfo = tbl_staff::where('staff_email', '=', $request->email)->first();
+            if ($staffInfo) {
+                if (Hash::check($request->password, $staffInfo->staff_password)) {
+                    $request->session()->put('staff_id', $staffInfo->staff_id);
+                    return redirect('/admin');
+                } else {
+                    return back()->with('fail', 'Incorrect password');
+                }
+            } else {
+                return back()->with('fail', 'We do not recognize your email address');
+            }
         } else {
             //check password
-            if (Hash::check($request->password, $userInfo->stud_password)) {
-                $request->session()->put('LoggedUser', $userInfo->stud_id);
-                return redirect('STC/student');
+            if (Hash::check($request->password, $studentInfo->stud_password)) {
+                $request->session()->put('student_id', $studentInfo->stud_id);
+                return redirect('/student');
             } else {
                 return back()->with('fail', 'Incorrect password');
             }
@@ -60,6 +70,79 @@ class MainController extends Controller
         $enroll = $student->save();
 
         if ($enroll) {
+            return back()->with('success', 'New User has been successfuly added to database');
+        } else {
+            return back()->with('fail', 'Something went wrong, try again later');
+        }
+    }
+    function save_staff(Request $request)
+    {
+
+        //Validate requests
+        $request->validate([
+            'f_name' => 'required',
+            'l_name' => 'required',
+            'email' => 'required|email',
+            'password' => 'required|min:5|max:12'
+        ]);
+
+        //Insert data into database
+        $staff = new tbl_staff();
+        $fname = $request->f_name;
+        $lname = $request->l_name;
+        $stud_name = $fname . " " . $lname;
+        $role_id = 1;
+
+        $staff->staff_name = $stud_name;
+        $staff->staff_email = $request->email;
+        $staff->staff_role = $role_id;
+        $staff->staff_password = Hash::make($request->password);
+        $enroll = $staff->save();
+
+        if ($enroll) {
+            return back()->with('success', 'New User has been successfuly added to database');
+        } else {
+            return back()->with('fail', 'Something went wrong, try again later');
+        }
+    }
+    function students()
+    {
+        $data = ['LoggedUserInfo' => tbl_students::where('stud_id', '=', session('student_id'))->first()];
+        return view('/STC/student', $data);
+    }
+    function admin()
+    {
+        $student_data = tbl_students::all();
+        $data = ['LoggedUserInfo' => tbl_staff::where('staff_id', '=', session('staff_id'))->first()];
+        return view('/HR/admin', $data, compact('student_data'));
+    }
+    function logout()
+    {
+        session()->flush();
+        return redirect('/');
+    }
+    function delete_student($id)
+    {
+        $deletion = tbl_students::where('stud_id', $id)->delete();
+        if ($deletion) {
+            return back()->with('success', 'Student has been deleted successfully');
+        } else {
+            return back()->with('fail', 'Something went wrong, try again later');
+        }
+    }
+    function edit($id)
+    {
+        $data = ['LoggedUserInfo' => tbl_staff::where('staff_id', '=', session('staff_id'))->first()];
+        $student = tbl_students::where('stud_id', $id)->first();
+        return view('/HR/editor', $data, compact('student'));
+    }
+    function update_student(Request $request, $id)
+    {
+        $new_name = $request->new_name;
+        $new_email = $request->new_email;
+        $new_status= $request->new_status;
+        $update = tbl_students::where('stud_id', $id)->update(array('stud_name'=>$new_name, 'stud_email'=>$new_email,'stud_enrol_status'=>$new_status));
+        if ($update) {
             return back()->with('success', 'New User has been successfuly added to database');
         } else {
             return back()->with('fail', 'Something went wrong, try again later');

@@ -21,8 +21,9 @@
             <a href="/"><img src="images/ES_white.png" class="logo-img" alt=""></a>
         </div>
         <div class="menu-button w-25 pe-2">
-            <img src="images/teen.png" alt="">
-            <h4 class="name">JOHN LENNIN</h4>
+            <a href="{{ route('auth.logout') }}"><button class="logout-btn"><i class="fa-solid fa-power-off pe-3"></i>LOG OUT</button></a>
+
+            <h4 class="name">{{$LoggedUserInfo['stud_name']}}</h4>
         </div>
     </nav>
     <section class="main w-100">

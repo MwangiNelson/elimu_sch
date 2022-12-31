@@ -1,63 +1,5 @@
-@import url("https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@300&family=Bree+Serif&family=Gilda+Display&family=Montserrat:wght@500&display=swap");
-* {
-    box-sizing: border-box;
-}
-body {
-    width: 100vw !important;
-    max-width: 100%;
-    margin: 0;
-    padding: 0;
+@import url("../repeats.css");
 
-    display: inline-flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-}
-.nav-bar {
-    position: fixed;
-    height: 10vh;
-    top: 0;
-    left: 0;
-    width: 100%;
-    z-index: 999;
-    background-color: #780000;
-    color: white;
-    display: grid;
-    grid-template-columns: 1fr;
-}
-.logo-container {
-    justify-self: center !important;
-    align-items: center;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-}
-
-.logo-img {
-    width: 12vw;
-    height: 10vh;
-    object-fit: cover;
-}
-.menu-button {
-    position: absolute;
-    display: inline-flex;
-    flex-direction: row-reverse;
-    justify-content: center;
-    justify-self: end;
-    align-items: center;
-    gap: 1rem;
-    height: inherit;
-    font-family: "Montserrat", sans-serif;
-}
-.menu-button h3 {
-    font-size: 0.75rem;
-}
-.menu-button img {
-    border-radius: 50%;
-    object-fit: cover;
-    width: 70px;
-    height: 70px;
-}
 .main {
     display: inline-flex;
     flex-direction: row;
@@ -79,6 +21,9 @@ body {
     align-items: center;
     justify-content: space-evenly;
 }
+.selected-btn {
+    background-color: #656565 !important;
+}
 .btn-holder {
     display: grid;
     grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
@@ -97,25 +42,29 @@ body {
     text-decoration: none;
 }
 
-.panel {
+.panel-holder {
     display: grid;
     grid-template-columns: 1fr;
     gap: 1rem;
 }
-
-.units-list {
+.panel {
+    display: none;
+    height: 87vh;
     border: 1px solid #333;
-    display: inline-flex;
-    flex-direction: column;
     justify-content: start;
     align-items: start;
 }
+.panel-selected {
+    display: inline-flex !important;
+    flex-direction: column;
+}
+
 .units-head h3 {
     font-family: "Montserrat", sans-serif;
 }
 .table-thead {
     color: #fff;
-    background-color: rgba(0, 0, 0, 0.473);
+    backdrop-filter: blur(3px);
     font-weight: bold;
     background-color: #780000;
     top: 0;
@@ -127,104 +76,39 @@ body {
 .tbody tr {
     border-bottom: 1px solid #707070;
     background-color: rgba(75, 75, 75, 0.473);
+    height: fit-content;
 }
-.users-tbl {
+.display-tbl {
     color: #333;
     overflow-y: scroll;
+    height: 75vh;
 }
 table {
     font-family: "Bree Serif", serif;
     font-size: 1rem;
     text-transform: uppercase;
-    height: 60vh;
-}
-td {
-    font-family: "Gilda Display", serif;
-    padding: 1rem;
-    text-align: center;
 }
 
-/* 
-footer */
-.footer-section {
-    display: inline-flex;
-    flex-direction: column;
-}
-.upper-foot {
-    border-top: 1px solid #000;
-    display: inline-flex;
-    flex-direction: row;
-    background-color: #780000;
-    padding: 1rem;
-    justify-content: end;
-    align-items: end;
-    gap: 2rem;
-    height: fit-content;
-    font-family: "Montserrat", sans-serif;
-}
-.upper-foot a {
-    color: #ffffff84;
-    text-decoration: none;
-    transition: all 0.3s ease;
-}
-
-.upper-foot a:hover {
-    color: white;
-}
-.lower-foot {
-    background-color: #ac0000;
+.editor-form-container,
+.section-main {
     display: inline-flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    text-align: center;
-    font-family: "Montserrat", sans-serif;
-    padding-block: 1.5rem;
 }
-.logo-display {
-    display: inline-flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-    gap: 1rem;
-    height: fit-content;
+.section-main {
+    height: 100vh;
 }
-.line {
-    height: 5px;
-    background-color: white !important;
-    width: 250px;
-    margin: 0px;
-    border-radius: 5px;
-}
-.lower-foot img {
-    width: 300px;
-    height: 200px;
-    object-fit: cover;
-}
-.lower-foot h3 {
-    font-family: "Barlow Condensed", sans-serif;
-    font-size: 2rem;
-    color: white;
-    gap: 0.75rem;
+.bold {
+    font-size: large;
+    text-transform: uppercase;
+    font-family: "Bree Serif", serif;
+    margin-left: 2vw;
 }
 
-.socials-container {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
-    gap: 1rem;
-}
-.round {
-    border-radius: 50%;
-    width: 50px;
-    height: 50px;
-    background-color: rgba(255, 255, 255, 0.425);
+.buttons-holder {
     display: flex;
-    flex-direction: column;
+    gap: 20px;
     justify-content: center;
-    align-items: center;
-    text-align: center;
-    color: rgba(255, 255, 255, 0.534);
-}
-.round:hover {
-    color: white;
+    flex-direction: row;
 }

@@ -14,6 +14,16 @@ body {
     justify-content: center;
     align-items: center;
 }
+.logout-btn {
+    width: max-content;
+    padding: 1rem;
+    background-color: #fff;
+    border: none;
+}
+.logout-btn:hover {
+    background-color: rgba(185, 105, 110, 0.886);
+    color: #fff;
+}
 .nav-bar {
     position: fixed;
     height: 100px;
