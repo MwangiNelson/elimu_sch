@@ -32,14 +32,26 @@
             </div>
 
 
-
             <div class="enrolment-div w-100">
-                <form action="" method="POST" class="form w-100">
+                <form action="{{ route('auth.save') }}" method="POST" class="form w-100">
+
+                    @csrf
                     <div class="enroll-form">
                         <div class="student-data w-50">
                             <div class="data-head">
                                 <h3>Student details</h3>
                             </div>
+                            @if(Session::get('success'))
+                            <div class="alert alert-success">
+                                {{ Session::get('success') }}
+                            </div>
+                            @endif
+
+                            @if(Session::get('fail'))
+                            <div class="alert alert-danger">
+                                {{ Session::get('fail') }}
+                            </div>
+                            @endif
                             <div class="split-input w-100 p-0">
                                 <div class="s-input w-100">
                                     <label for="f_name">First Name :</label>
@@ -78,8 +90,8 @@
                                 <input type="number" class="phone_num form-control w-100" name="phone_num" id="phone_num">
                             </div>
                             <div class="s-input w-100">
-                                <label for="phone_no">Address :</label>
-                                <input type="text" class="address form-control w-100" name="address" id="address">
+                                <label for="password">Temporary password :</label>
+                                <input type="password" class="address form-control w-100" name="password" id="password">
                             </div>
 
                             <div class="s-input w-100">
@@ -107,32 +119,32 @@
                                 </div>
                                 <div class="split-input w-100 p-0">
                                     <div class="s-input w-100">
-                                        <label for="f_name">First Name :</label>
-                                        <input type="text" class="f_name form-control w-100" name="f_name" id="f_name">
+                                        <label for="g_f_name">First Name :</label>
+                                        <input type="text" class="g_f_name form-control w-100" name="g_f_name" id="f_name">
                                     </div>
                                     <div class="s-input w-100">
                                         <label for="l_name">Last Name :</label>
-                                        <input type="text" class="l_name form-control w-100" name="l_name" id="l_name">
+                                        <input type="text" class="l_name form-control w-100" name="g_l_name" id="g_l_name">
                                     </div>
                                 </div>
                                 <div class="split-input w-100 p-0">
                                     <div class="s-input w-100">
-                                        <label for="f_name">Occupation :</label>
-                                        <input type="text" class="f_name form-control w-100" name="f_name" id="f_name">
+                                        <label for="occupation">Occupation :</label>
+                                        <input type="text" class="occupation form-control w-100" name="occupation" id="occupation">
                                         <!-- <small class="form-text text-muted">Optional</small> -->
                                     </div>
                                     <div class="s-input w-100">
                                         <label for="phone_no">Address :</label>
-                                        <input type="text" class="address form-control w-100" name="address" id="address">
+                                        <input type="text" class="address form-control w-100" name="g_address" id="g_address">
                                     </div>
                                 </div>
                                 <div class="s-input w-100">
                                     <label for="email">Email address :</label>
-                                    <input type="email" class="email form-control w-100" name="email" id="email">
+                                    <input type="email" class="email form-control w-100" name="guardian_email" id="guradian_email">
                                 </div>
                                 <div class="s-input w-100">
                                     <label for="phone_no">Phone number :</label>
-                                    <input type="number" class="phone_num form-control w-100" name="phone_num" id="phone_num">
+                                    <input type="number" class="phone_num form-control w-100" name="g_phone_num" id="g_phone_num">
                                 </div>
 
 
@@ -144,7 +156,7 @@
                                 </div>
                                 <div class="s-input w-100">
                                     <label for="sch_name">Name:</label>
-                                    <input type="text" class="passport form-control w-100" name="passport" id="passport">
+                                    <input type="text" class="passport form-control w-100" name="p_school" id="p_school">
                                 </div>
                                 <div class="s-input w-100">
                                     <label for="transcript">Transcript :</label>

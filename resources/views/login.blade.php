@@ -23,23 +23,33 @@
 
 
         <div class="login-form-container w-25">
-            <form action="" method="POST" class="w-100">
+            <form action="{{ route('auth.check') }}" method="POST" class="w-100">
+                @if(Session::get('fail'))
+                <div class="alert alert-danger">
+                    {{ Session::get('fail') }}
+                </div>
+                @endif
+
+                @csrf
                 <div class="input-field w-100">
-                    <label for="user_email">
+                    <label for="email">
                         Enter your email here:
                     </label>
-                    <input type="email" required class="form-control w-100">
+                    <input type="email" name="email" required class="form-control w-100">
+                    <span class="text-danger">@error('email'){{ $message }} @enderror</span>
+
                 </div>
                 <div class="input-field">
                     <label for="password">
                         Enter your password here:
                     </label>
-                    <input type="password" required class="form-control w-100">
+                    <input type="password" name="password" required class="form-control w-100">
+                    <span class="text-danger">@error('password'){{ $message }} @enderror</span>
                 </div>
                 <div class="infomatics w-100">
                     <small class="form-text"><a href="">Forgot password</a> </small>
                 </div>
-                <a href="student"><button class="btn btn-primary w-100" type="button">LOG IN</button></a>
+                <button class="btn btn-primary w-100" type="submit">LOG IN</button>
             </form>
         </div>
     </section>

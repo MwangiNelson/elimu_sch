@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\MainController;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,9 +17,10 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('landing');
 });
-Route::get('/login', function () {
-    return view('login');
-});
+Route::get('/login', [MainController::class, 'login']);
+Route::post('/auth/check',[MainController::class, 'check'])->name('auth.check');
+Route::post('/auth/save',[MainController::class, 'save'])->name('auth.save');
+
 Route::get('/enroll', function () {
     return view('enroll');
 });
@@ -37,4 +39,3 @@ Route::get('/teacher', function () {
 Route::get('/admin', function () {
     return view('HR/admin');
 });
-
