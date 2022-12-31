@@ -157,3 +157,20 @@ footer */
     background-color: rgba(185, 105, 110, 0.886) !important;
     color: #fff !important;
 }
+.split-input {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: start;
+    justify-content: center;
+    gap: 0.5rem;
+}
+.s-input {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: start;
+}
+.form-control {
+    background-color: #ffffff72 !important;
+    border-radius: 3px;
+}
+

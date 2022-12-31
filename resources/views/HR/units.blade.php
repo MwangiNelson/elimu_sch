@@ -20,24 +20,28 @@
         <table class="table table-striped w-100">
             <thead class="table-thead">
                 <tr>
-                    <th scope="col">#</th>
+                    <th scope="row">#</th>
                     <th scope="col">UNIT NAME</th>
                     <th scope="col">UNIT CODE</th>
-                    <th scope="col">OPTIONS</th>
+                    <th scope="col">DESCRIPTION</th>
+                    <th scope="col">CHAPTERS</th>
+            
+                    <th scope="col"></th>
                 </tr>
             </thead>
             <tbody class="">
                 @csrf
-                @foreach ($student_data as $item)
+                @foreach ($unit_data as $item)
                 <tr>
-                    <td scope="row">{{ $item->stud_id }}</td>
-                    <td>{{ $item->stud_name }}</td>
-                    <td>{{ $item->stud_id }}</td>
+                    <td scope="row">{{ $item->id }}</td>
+                    <td>{{ $item->unit_name }}</td>
+                    <td>{{ $item->unit_code }}</td>
+                    <td>{{ $item->unit_desc }}</td>
+                    <td>{{ $item->unit_chapters }}</td>
+        
+                    <!-- <td>{{ $item->unit_lecturer }}</td> -->
                     <td>
-                        <div class="options">
-                            <a href=""><button class="btn btn-warning"><i class="fa-solid fa-pen-to-square"></i></button></a>
-                            <a href="{{ url('delete-student/'.$item->stud_id) }}"><button class="btn btn-danger"><i class="fa-solid fa-trash"></i></button></a>
-                        </div>
+                        <a href="{{ url('delete-unit/'.$item->id) }}"><button class="btn btn-danger"><i class="fa-solid fa-trash"></i></button></a>
                     </td>
                 </tr>
                 @endforeach

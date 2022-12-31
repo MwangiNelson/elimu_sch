@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\tbl_students;
 use App\Models\tbl_staff;
+use App\Models\tbl_units;
 use Illuminate\Support\Facades\Hash;
 
 class MainController extends Controller
@@ -16,7 +17,7 @@ class MainController extends Controller
     function check(Request $request)
     {
         //Validate requests
-        $request->alidate([
+        $request->validate([
             'email' => 'required|email',
             'password' => 'required|min:5|max:12'
         ]);
@@ -75,7 +76,7 @@ class MainController extends Controller
             return back()->with('fail', 'Something went wrong, try again later');
         }
     }
-    function save_staff(Request $request)
+    function add_staff(Request $request)
     {
 
         //Validate requests
@@ -113,8 +114,10 @@ class MainController extends Controller
     function admin()
     {
         $student_data = tbl_students::all();
+        $staff_data = tbl_staff::all();
+        $unit_data = tbl_units::all();
         $data = ['LoggedUserInfo' => tbl_staff::where('staff_id', '=', session('staff_id'))->first()];
-        return view('/HR/admin', $data, compact('student_data'));
+        return view('/HR/admin', $data, compact('student_data', 'unit_data', 'staff_data'));
     }
     function logout()
     {
@@ -130,6 +133,15 @@ class MainController extends Controller
             return back()->with('fail', 'Something went wrong, try again later');
         }
     }
+    function delete_unit($id)
+    {
+        $deletion = tbl_units::where('id', $id)->delete();
+        if ($deletion) {
+            return back()->with('success', 'Selected unit was been deleted successfully');
+        } else {
+            return back()->with('fail', 'Something went wrong, try again later');
+        }
+    }
     function edit($id)
     {
         $data = ['LoggedUserInfo' => tbl_staff::where('staff_id', '=', session('staff_id'))->first()];
@@ -140,10 +152,26 @@ class MainController extends Controller
     {
         $new_name = $request->new_name;
         $new_email = $request->new_email;
-        $new_status= $request->new_status;
-        $update = tbl_students::where('stud_id', $id)->update(array('stud_name'=>$new_name, 'stud_email'=>$new_email,'stud_enrol_status'=>$new_status));
+        $new_status = $request->new_status;
+        $update = tbl_students::where('stud_id', $id)->update(array('stud_name' => $new_name, 'stud_email' => $new_email, 'stud_enrol_status' => $new_status));
         if ($update) {
             return back()->with('success', 'New User has been successfuly added to database');
+        } else {
+            return back()->with('fail', 'Something went wrong, try again later');
+        }
+    }
+    function add_unit(Request $request)
+    {
+
+        $unit = new tbl_units;
+        $unit->unit_name = $request->unit_name;
+        $unit->unit_code = $request->unit_code;
+        $unit->unit_desc = $request->unit_desc;
+        $unit->unit_lecturer = $request->unit_lec;
+        $unit->unit_chapters = $request->unit_chapters;
+        $new_unit = $unit->save();
+        if ($new_unit) {
+            return back()->with('success', 'New Unit has been successfuly added to database');
         } else {
             return back()->with('fail', 'Something went wrong, try again later');
         }

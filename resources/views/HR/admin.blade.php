@@ -38,7 +38,7 @@
                 </button>
                 <button class="side-btn" id="profile-btn">
                     <i class="fa-solid font-large fa-address-card"></i>
-                    EDIT STAFF
+                    ADD STAFF
                 </button>
                 <a href="{{route('auth.logout')}}" style="text-decoration:none ;" class="w-100">
                     <button class="side-btn logout-btn btn-logout w-100">
@@ -53,11 +53,13 @@
                 <!-- students panel -->
                 @include('HR\students_list')
                 <!-- staff_list panel -->
-                
+
                 <!-- units_list panel -->
                 @include('HR\units')
                 <!-- units_list panel -->
-            
+                @include('HR\add_unit')
+                @include('HR\staff')
+                @include('HR\add_staff')
 
                 <!-- add_units panel-->
             </div>

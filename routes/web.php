@@ -47,3 +47,6 @@ Route::get('/auth/logout', [MainController::class, 'logout'])->name('auth.logout
 
 //functionality routes
 Route::get('delete-student/{id}', [MainController::class, 'delete_student']);
+Route::get('delete-unit/{id}', [MainController::class, 'delete_unit']);
+Route::post('/auth/add-unit', [MainController::class, 'add_unit'])->name('auth.add-unit');
+Route::post('/auth/add-staff', [MainController::class, 'add_staff'])->name('auth.add-staff');

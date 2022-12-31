@@ -11,7 +11,8 @@
 }
 .side-btn {
     background-color: #d9d9d9;
-    padding: 3rem;
+    padding: 2.7rem;
+    border-top: 2px solid #780000;
     color: #333;
     border: none;
 
@@ -26,9 +27,9 @@
 }
 .btn-holder {
     display: grid;
-    grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
+    grid-template-columns: 1fr;
     height: 100%;
-    height: 90vh;
+    height: 70vh;
 }
 .side-btn:hover {
     background-color: #bdbdbd;
@@ -112,3 +113,7 @@ table {
     justify-content: center;
     flex-direction: row;
 }
+
+
+
+

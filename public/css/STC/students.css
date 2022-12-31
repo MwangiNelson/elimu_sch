@@ -290,3 +290,18 @@ footer */
 .round:hover {
     color: white;
 }
+
+.back {
+    background-color: #000;
+    height: fit-content;
+}
+.back-btn {
+    background-color: #000;
+    border-radius: 0;
+    border: none;
+    color: white;
+    width: 25%;
+}
+.back-btn:hover {
+    background: #333;
+}
