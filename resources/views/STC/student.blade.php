@@ -50,7 +50,6 @@
                 <h3>SCHOOL CLOSING CEREMONY</h3>
                 <span class="line"></span>
                 <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Earum quidem ipsum alias, mollitia laudantium unde sequi cupiditate tenetur vitae ut tempora eos veritatis dignissimos vero nihil dolorum possimus corrupti totam.</p>
-
                 <div class="owner w-100">
                     <p>Tr. Muthemba Joseph</p>
                 </div>
@@ -61,6 +60,9 @@
         </div>
     </section>
     <section class="units w-75">
+        <div class="reg w-75 ms-4">
+            <a href="register_units" class="ms-4"><button class="btn btn-outline-dark ms-4">REGISTER NEW UNIT</button></a>
+        </div>
         <div class="section-head w-100">
             <h2>My Units</h2>
         </div>

@@ -28,6 +28,8 @@ Route::get('/enroll', function () {
 
 
 Route::get('/student', [MainController::class, 'students']);
+Route::get('/register_units', [MainController::class, 'register_units']);
+
 Route::get('/edit-student/{id}', [MainController::class, 'edit']);
 Route::post('/update-student/{id}', [MainController::class, 'update_student']);
 

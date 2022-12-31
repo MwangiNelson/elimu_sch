@@ -14,6 +14,11 @@ class MainController extends Controller
     {
         return view('login');
     }
+    public function register_units()
+    {
+        $data = ['LoggedUserInfo' => tbl_students::where('stud_id', '=', session('student_id'))->first()];
+        return view('/STC/unit_reg', $data);
+    }
     function check(Request $request)
     {
         //Validate requests

@@ -43,7 +43,6 @@
                 <button class="register-btn">REGISTER</button>
             </div>
         </div>
-
     </section>
 
 </body>
