@@ -85,6 +85,16 @@ body {
     padding: 3rem;
     height: fit-content;
 }
+.main-section {
+    margin-top: 100px;
+    background: #fff;
+    padding: 3rem;
+    height: fit-content;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
 /* notices */
 .notices {
     display: grid;
@@ -304,4 +314,45 @@ footer */
 }
 .back-btn:hover {
     background: #333;
+}
+
+.unit-card-reg {
+    font-family: "Josefin Sans", sans-serif !important;
+    box-shadow: #ac0000 0px 0px 0px 2px inset;
+    background-color: rgb(255, 255, 255);
+    color: #000;
+    border-radius: 0;
+    border: none;
+    padding: 0;
+    transition: all 0.5s ease;
+}
+.unit-card-reg h6 {
+    font-size: 0.5rem;
+}
+.unit-card-reg:hover {
+    transform: translateY(20px) translateX(-20px);
+    box-shadow: blue 0px 0px 0px 2px inset,
+        rgb(255, 255, 255) 10px -10px 0px -3px, rgb(31, 193, 27) 10px -10px,
+        rgb(255, 255, 255) 20px -20px 0px -3px, rgb(255, 217, 19) 20px -20px,
+        rgb(255, 255, 255) 30px -30px 0px -3px, rgb(255, 156, 85) 30px -30px,
+        rgb(255, 255, 255) 40px -40px 0px -3px, rgb(255, 85, 85) 40px -40px;
+}
+.register-btn {
+    background-color: #780000;
+    padding: 1rem;
+    width: 100%;
+    border-radius: 0;
+    border: none;
+    color: #fff;
+}
+.card-details {
+    padding: 2rem;
+    width: 100%;
+}
+.registration-section {
+    padding-top: 1rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    gap: 2rem
+    ;
 }

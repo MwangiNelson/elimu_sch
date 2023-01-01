@@ -12,6 +12,7 @@
     <!-- bootstrap cdn -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
     <link rel="stylesheet" href="/css/TC/teacher.css">
+    <script src="/js/all.js" defer></script>
     <title>Student Portal - ELIMU SCHOOL</title>
 </head>
 
@@ -20,23 +21,40 @@
         <div class="logo-container">
             <a href="/"><img src="images/ES_white.png" class="logo-img" alt=""></a>
         </div>
-        <div class="menu-button w-25 pe-2">
-            <img src="images/teen.png" alt="">
-            <h4 class="name">JOHN LENNIN</h4>
+        <div class="menu-button w-25 pe-2" style="flex-direction: column;">
+            <a href="{{ route('auth.logout') }}"><button class="logout-btn"><i class="fa-solid fa-power-off pe-3"></i>LOG OUT</button></a>
+            <h4 class="name" style="text-transform: uppercase; font-size:15px;">TR. {{$LoggedUserInfo['staff_name']}}</h4>
         </div>
     </nav>
     <section class="main w-100">
         <div class="notices w-100">
 
             <div class="notice w-100">
-                <form action="" class="w-100">
+                <div class="header">
+                    <h3>POST NOTICE</h3>
+                </div>
+                <form action="{{route('auth.add-notice')}}" method="post" class="w-100">
+                    @csrf
+                    @if(Session::get('success'))
+                    <div class="alert alert-success">
+                        {{ Session::get('success') }}
+                    </div>
+                    <hr>
+                    @endif
+
+                    @if(Session::get('fail'))
+                    <div class="alert alert-danger">
+                        {{ Session::get('fail') }}
+                    </div>
+                    <hr>
+                    @endif
                     <div class="s-input w-100">
                         <label for="f_name">Notice Header :</label>
-                        <input type="text" class="notice_name form-control w-100" name="notice_name" id="notice_name">
+                        <input type="text" class="notice_header form-control" name="notice_header" id="notice_header">
                     </div>
                     <div class="s-input w-100">
                         <label for="f_name">Notice details :</label>
-                        <textarea class="form-control" rows="5" id="comment"></textarea>
+                        <textarea class="form-control" rows="5" name="notice_desc" id="notice_desc"></textarea>
                     </div>
                     <div class="btn-holder w-100 py-2">
                         <button class="btn btn-primary w-100" type="submit">
@@ -48,7 +66,7 @@
             </div>
         </div>
         <div class="view-all w-75 pt-3">
-            <a href="notices" class="w-75"> <button class="btn btn-outline-dark w-50">View all <i class="fa-solid fa-angles-right ps-3"></i></button></a>
+            <a href="noticesteacher" class="w-75"> <button class="btn btn-outline-dark w-50">View all <i class="fa-solid fa-angles-right ps-3"></i></button></a>
         </div>
     </section>
     <section class="units w-75">
@@ -56,38 +74,25 @@
             <h2>My teaching subjects</h2>
         </div>
         <div class="unit-holder">
+            @foreach ($unit_data as $item)
             <a href="coursework">
                 <div class="unit-card w-100">
                     <span class="shadow"></span>
                     <div class="unit-details">
                         <h4 class="unit_title">
-                            Business Math
+                            {{$item->unit_name}}
                         </h4>
                         <p class="unit_desc">ICS3201</p>
+                        <span class="unit-desc">
+                            {{$item->unit_desc}}
+                        </span>
                     </div>
                     <span class="w-100">EDIT COURSEWORK</span>
                 </div>
             </a>
-            <div class="unit-card w-100">
-                <span class="shadow"></span>
-                <div class="unit-details">
-                    <h4 class="unit_title">
-                        Business Math
-                    </h4>
-                    <p class="unit_desc">ICS3201</p>
-                </div>
-                <span class="w-100">EDIT COURSEWORK</span>
-            </div>
-            <div class="unit-card w-100">
-                <span class="shadow"></span>
-                <div class="unit-details">
-                    <h4 class="unit_title">
-                        Business Math
-                    </h4>
-                    <p class="unit_desc">ICS3201</p>
-                </div>
-                <span class="w-100">EDIT COURSEWORK</span>
-            </div>
+            @endforeach
+
+
 
         </div>
 

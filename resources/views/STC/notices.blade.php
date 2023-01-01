@@ -25,10 +25,10 @@
         <div class="logo-container">
             <img src="images/ES_LOGO.png" class="logo-img" alt="">
         </div>
-        <div class="menu-button w-25 pe-2">
+        <!-- <div class="menu-button w-25 pe-2">
             <img src="images/teen.png" alt="">
             <h4 class="name">JOHN LENNIN</h4>
-        </div>
+        </div> -->
     </nav>
 
     <section class="notices w-100">
@@ -39,15 +39,18 @@
             </div>
             <span class="line w-25"></span>
         </div>
+        @foreach ($notices as $item)
         <div class="notice w-100">
-            <h3>SCHOOL CLOSING CEREMONY</h3>
+            <h3>{{$item->notice_header}}</h3>
             <span class="line"></span>
-            <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Earum quidem ipsum alias, mollitia laudantium unde sequi cupiditate tenetur vitae ut tempora eos veritatis dignissimos vero nihil dolorum possimus corrupti totam.</p>
+            <p>{{$item->notice_desc}}</p>
 
-            <div class="owner w-100">
-                <p>Tr. Muthemba Joseph</p>
+            <div class="owner w-100" style="flex-direction:column;">
+                <p>{{$item->posted_by}}</p>
+                <p>{{$item->created_at}}</p>
             </div>
         </div>
+        @endforeach
 
 
     </section>

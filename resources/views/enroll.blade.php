@@ -120,7 +120,7 @@
                                 <div class="split-input w-100 p-0">
                                     <div class="s-input w-100">
                                         <label for="g_f_name">First Name :</label>
-                                        <input type="text" class="g_f_name form-control w-100" name="g_f_name" id="f_name">
+                                        <input type="text" class="g_f_name form-control w-100" name="g_f_name" id="g_f_name">
                                     </div>
                                     <div class="s-input w-100">
                                         <label for="l_name">Last Name :</label>

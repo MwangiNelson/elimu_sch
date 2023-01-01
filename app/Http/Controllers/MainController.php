@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Models\tbl_students;
 use App\Models\tbl_staff;
 use App\Models\tbl_units;
+use App\Models\tbl_notices;
+use App\Models\tbl_cwork;
 use Illuminate\Support\Facades\Hash;
 
 class MainController extends Controller
@@ -16,8 +18,9 @@ class MainController extends Controller
     }
     public function register_units()
     {
+        $unit = tbl_units::all();
         $data = ['LoggedUserInfo' => tbl_students::where('stud_id', '=', session('student_id'))->first()];
-        return view('/STC/unit_reg', $data);
+        return view('/STC/unit_reg', $data, compact('unit'));
     }
     function check(Request $request)
     {
@@ -34,7 +37,12 @@ class MainController extends Controller
             if ($staffInfo) {
                 if (Hash::check($request->password, $staffInfo->staff_password)) {
                     $request->session()->put('staff_id', $staffInfo->staff_id);
-                    return redirect('/admin');
+                    $s_role = $staffInfo->staff_role;
+                    if ($s_role === 1) {
+                        return redirect('/admin');
+                    } else {
+                        return redirect('/teacher');
+                    }
                 } else {
                     return back()->with('fail', 'Incorrect password');
                 }
@@ -124,6 +132,16 @@ class MainController extends Controller
         $data = ['LoggedUserInfo' => tbl_staff::where('staff_id', '=', session('staff_id'))->first()];
         return view('/HR/admin', $data, compact('student_data', 'unit_data', 'staff_data'));
     }
+    function lec()
+    {
+        $cwork = tbl_cwork::all();
+        $staff_data = tbl_staff::all();
+        $notices = tbl_notices::all();
+        $unit_data = tbl_units::all();
+        $my_units = tbl_units::where('unit_lecturer', '=', session('staff_id'))->first();
+        $data = ['LoggedUserInfo' => tbl_staff::where('staff_id', '=', session('staff_id'))->first()];
+        return view('/TC/teacher', $data, compact('notices', 'unit_data', 'staff_data', 'cwork', 'my_units'));
+    }
     function logout()
     {
         session()->flush();
@@ -177,6 +195,45 @@ class MainController extends Controller
         $new_unit = $unit->save();
         if ($new_unit) {
             return back()->with('success', 'New Unit has been successfuly added to database');
+        } else {
+            return back()->with('fail', 'Something went wrong, try again later');
+        }
+    }
+    function notices()
+    {
+        $notices = tbl_notices::all();
+        return view('/STC/notices',  compact('notices'));
+    }
+    function notices_teacher()
+    {
+        $notices = tbl_notices::all();
+        return view('/TC/notices', compact('notices'));
+    }
+    function add_notice(Request $request)
+    {
+        $notice = new tbl_notices;
+        $notice->notice_header = $request->notice_header;
+        $notice->notice_desc = $request->notice_desc;
+        $lec_details = tbl_staff::where('staff_id', '=', session('staff_id'))->first();
+        $notice->posted_by = $lec_details->staff_name;
+        $new_notice = $notice->save();
+        if ($new_notice) {
+            return back()->with('success', 'New Notice has been successfuly posted.');
+        } else {
+            return back()->with('fail', 'Notice has been failed terribly.');
+        }
+    }
+    function add_cwork(Request $request)
+    {
+
+        $cwork = new tbl_cwork;
+        $cwork->cwork_head = $request->cwork_head;
+        $cwork->cwork_desc = $request->cwork_desc;
+        $cwork->posted_by = $request->cwork_lec;
+        $cwork->cwork_unit = $request->cwork_unit;
+        $new_cwork = $cwork->save();
+        if ($new_cwork) {
+            return back()->with('success', 'New work has been successfuly added to database');
         } else {
             return back()->with('fail', 'Something went wrong, try again later');
         }
