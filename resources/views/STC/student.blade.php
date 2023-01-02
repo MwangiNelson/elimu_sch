@@ -67,38 +67,18 @@
             <h2>My Units</h2>
         </div>
         <div class="unit-holder">
-            <a href="coursework">
-                <div class="unit-card w-100">
-                    <span class="shadow"></span>
-                    <div class="unit-details">
-                        <h4 class="unit_title">
-                            Business Math
-                        </h4>
-                        <p class="unit_desc">ICS3201</p>
-                    </div>
-                    <span class="w-100">VIEW COURSEWORK</span>
-                </div>
-            </a>
+            @foreach ($my_units as $item)
             <div class="unit-card w-100">
                 <span class="shadow"></span>
                 <div class="unit-details">
                     <h4 class="unit_title">
-                        Business Math
+                        {{$item->unit_name}}
                     </h4>
-                    <p class="unit_desc">ICS3201</p>
+                    <p class="unit_desc">ICS{{$item->unit_id}}</p>
                 </div>
-                <span class="w-100">VIEW COURSEWORK</span>
+                <a href="{{ url('course/'.$item->unit_id) }}"><span class="w-100">VIEW COURSEWORK</span></a>
             </div>
-            <div class="unit-card w-100">
-                <span class="shadow"></span>
-                <div class="unit-details">
-                    <h4 class="unit_title">
-                        Business Math
-                    </h4>
-                    <p class="unit_desc">ICS3201</p>
-                </div>
-                <span class="w-100">VIEW COURSEWORK</span>
-            </div>
+            @endforeach
 
         </div>
 

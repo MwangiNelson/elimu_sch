@@ -37,8 +37,8 @@
                     <td>{{ $item->staff_role }}</td>
                     <td>
                         <div class="options">
-                            <a href="{{ url('edit-student/'.$item->stud_id) }}"><button class="btn btn-warning"><i class="fa-solid fa-pen-to-square"></i></button></a>
-                            <a href="{{ url('delete-student/'.$item->stud_id) }}"><button class="btn btn-danger"><i class="fa-solid fa-trash"></i></button></a>
+                            <a href=""><button class="btn btn-warning"><i class="fa-solid fa-pen-to-square"></i></button></a>
+                            <a href="{{ url('delete-staff/'.$item->staff_id) }}"><button class="btn btn-danger"><i class="fa-solid fa-trash"></i></button></a>
                         </div>
                     </td>
                 </tr>

@@ -8,6 +8,7 @@ use App\Models\tbl_staff;
 use App\Models\tbl_units;
 use App\Models\tbl_notices;
 use App\Models\tbl_cwork;
+use App\Models\tbl_registrations;
 use Illuminate\Support\Facades\Hash;
 
 class MainController extends Controller
@@ -121,8 +122,9 @@ class MainController extends Controller
     }
     function students()
     {
+        $my_units = tbl_registrations::where('student_id', '=', session('student_id'))->get();
         $data = ['LoggedUserInfo' => tbl_students::where('stud_id', '=', session('student_id'))->first()];
-        return view('/STC/student', $data);
+        return view('/STC/student', $data, compact('my_units'));
     }
     function admin()
     {
@@ -165,6 +167,7 @@ class MainController extends Controller
             return back()->with('fail', 'Something went wrong, try again later');
         }
     }
+
     function edit($id)
     {
         $data = ['LoggedUserInfo' => tbl_staff::where('staff_id', '=', session('staff_id'))->first()];
@@ -223,17 +226,85 @@ class MainController extends Controller
             return back()->with('fail', 'Notice has been failed terribly.');
         }
     }
-    function add_cwork(Request $request)
+    public function reg_unit($id)
     {
+        $stud_info = tbl_students::where('stud_id', '=', session('student_id'))->first();
+        $unit_info = tbl_units::where('id', '=', $id)->first();
+        $reg_instance = new tbl_registrations();
+        $reg_instance->student_id = session('student_id');
+        $reg_instance->student_name = session('student_id');
+        $reg_instance->unit_id = $id;
+        $reg_instance->unit_name = $unit_info->unit_name;
+
+
+        $already_registered = tbl_registrations::where('unit_id', '=', $id)->where('student_id', '=', $stud_info->stud_id)->first();
+        if ($already_registered) {
+            return back()->with('fail', 'You are already registered');
+        } else {
+            $new_reg = $reg_instance->save();
+            if ($new_reg) {
+                return back()->with('success', 'New Unit has been successfuly added to database');
+            } else {
+                return back()->with('fail', 'Something went wrong, try again later');
+            }
+        }
+    }
+    function course($id)
+    {
+        if (!session('student_id')) {
+            return redirect('/login')->with('fail', 'Please login first');
+        }
+        $unit = tbl_units::where('id', $id)->first();
+        $unit_coursework = tbl_cwork::where('cwork_unit', '=', $unit->unit_name)->get();
+
+        $data = ['LoggedUserInfo' => tbl_students::where('stud_id', '=', session('student_id'))->first()];
+
+        return view('/STC/coursework', $data, compact('unit', 'unit_coursework'));
+    }
+    function unit($id)
+    {
+        if (!session('staff_id')) {
+            return redirect('/login')->with('fail', 'Please login first');
+        }
+        $unit = tbl_units::where('id', $id)->first();
+        $unit_coursework = tbl_cwork::where('cwork_unit', '=', $unit->unit_name)->get();
+
+        $data = ['LoggedUserInfo' => tbl_staff::where('staff_id', '=', session('staff_id'))->first()];
+
+        return view('/TC/unit', $data, compact('unit', 'unit_coursework'));
+    }
+    function delete_work($id)
+    {
+        $deletion = tbl_cwork::where('id', $id)->delete();
+        if ($deletion) {
+            return back()->with('success', 'Selected unit was been deleted successfully');
+        } else {
+            return back()->with('fail', 'Something went wrong, try again later');
+        }
+    }
+    function add_cwork(Request $request, $id)
+    {
+        $lec_details = tbl_staff::where('staff_id', '=', session('staff_id'))->first();
+        $unit_details = tbl_units::where('id', '=', $id)->first();
+
 
         $cwork = new tbl_cwork;
         $cwork->cwork_head = $request->cwork_head;
         $cwork->cwork_desc = $request->cwork_desc;
-        $cwork->posted_by = $request->cwork_lec;
-        $cwork->cwork_unit = $request->cwork_unit;
+        $cwork->posted_by = $lec_details->staff_name;
+        $cwork->cwork_unit = $unit_details->unit_name;
         $new_cwork = $cwork->save();
         if ($new_cwork) {
             return back()->with('success', 'New work has been successfuly added to database');
+        } else {
+            return back()->with('fail', 'Something went wrong, try again later');
+        }
+    }
+    function delete_staff($id)
+    {
+        $deletion = tbl_staff::where('staff_id', $id)->delete();
+        if ($deletion) {
+            return back()->with('success', 'Staff has been deleted successfully');
         } else {
             return back()->with('fail', 'Something went wrong, try again later');
         }

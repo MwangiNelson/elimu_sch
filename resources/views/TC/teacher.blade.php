@@ -75,23 +75,21 @@
         </div>
         <div class="unit-holder">
             @foreach ($unit_data as $item)
-            <a href="coursework">
-                <div class="unit-card w-100">
-                    <span class="shadow"></span>
-                    <div class="unit-details">
-                        <h4 class="unit_title">
-                            {{$item->unit_name}}
-                        </h4>
-                        <p class="unit_desc">ICS3201</p>
-                        <span class="unit-desc">
-                            {{$item->unit_desc}}
-                        </span>
-                    </div>
-                    <span class="w-100">EDIT COURSEWORK</span>
+            <div class="unit-card w-100">
+                <span class="shadow"></span>
+                <div class="unit-details">
+                    <h4 class="unit_title">
+                        {{$item->unit_name}}
+                    </h4>
+                    <p class="unit_desc">ICS3201</p>
+                    <span class="unit-desc">
+                        {{$item->unit_desc}}
+                    </span>
                 </div>
-            </a>
-            @endforeach
+                <a href="{{ url('unit/'.$item->id) }}"><span class="w-100">EDIT COURSEWORK</span></a>
 
+            </div>
+            @endforeach
 
 
         </div>

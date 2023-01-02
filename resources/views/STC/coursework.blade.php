@@ -19,33 +19,36 @@
     <nav class="nav-bar w-100 p-0 m-0">
 
         <div class="back">
-            <a href="student"> <button class="btn btn-outline-light"><i class="fa-solid fa-arrow-left"></i></button></a>
+            <a href="{{route('student')}}"> <button class="btn btn-outline-light"><i class="fa-solid fa-arrow-left"></i></button></a>
         </div>
         <div class="logo-container">
-            <img src="images/ES_LOGO.png" class="logo-img" alt="">
-        </div>
-        <div class="menu-button w-25 pe-2">
-            <img src="images/teen.png" alt="">
-            <h4 class="name">JOHN LENNIN</h4>
+            <img src="/images/ES_LOGO.png" class="logo-img" alt="">
         </div>
     </nav>
     <section class="unit w-100">
         <div class="unit-head w-100">
             <div class="unit-name w-75">
-                <h2>BUSINESS MATH</h2>
-                <h4>ICS3201</h4>
+                <h2>{{$unit->unit_name}}</h2>
+                <h4>ICS{{$unit->unit_code}}</h4>
             </div>
             <div class="lecturer w-25">
-                <p>Tr. Muthemba Joseph</p>
+                <p>Enrolled On:- {{$unit->created_at}}</p>
             </div>
         </div>
 
+        @foreach ($unit_coursework as $item)
         <div class="content w-100">
-            <h3>Assignment 1</h3>
-            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Repellendus et dolor ducimus veniam? Repellat harum, quod impedit tempore non delectus dolorem alias in voluptas doloribus iste exercitationem iusto dolore nesciunt?</p>
+            <h4>{{$item->cwork_head}}</h4>
+            <hr>
+            <p>{{$item->cwork_desc}}</p>
 
-            
+            <div class="content-owner w-100">
+                <h3>POSTED BY: {{$item->posted_by}}</h3>
+                <h3>CREATED AT: {{$item->created_at}}</h3>
+            </div>
+
         </div>
+        @endforeach
     </section>
 </body>
 

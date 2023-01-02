@@ -26,8 +26,7 @@ Route::get('/enroll', function () {
 });
 
 
-
-Route::get('/student', [MainController::class, 'students']);
+Route::get('/student', [MainController::class, 'students'])->name('student');
 Route::get('/register_units', [MainController::class, 'register_units']);
 
 Route::get('/edit-student/{id}', [MainController::class, 'edit']);
@@ -39,9 +38,10 @@ Route::get('/noticesteacher', [MainController::class, 'notices_teacher']);
 Route::get('/coursework', function () {
     return view('STC/coursework');
 });
-Route::get('/teacher', [MainController::class, 'lec']);
+Route::get('/teacher', [MainController::class, 'lec'])->name('teacher');
 Route::get('/admin', [MainController::class, 'admin']);
 Route::get('/auth/logout', [MainController::class, 'logout'])->name('auth.logout');
+Route::get('/unit/{id}', [MainController::class, 'unit']);
 
 
 //functionality routes
@@ -50,4 +50,9 @@ Route::get('delete-unit/{id}', [MainController::class, 'delete_unit']);
 Route::post('/auth/add-unit', [MainController::class, 'add_unit'])->name('auth.add-unit');
 Route::post('/auth/add-staff', [MainController::class, 'add_staff'])->name('auth.add-staff');
 Route::post('/auth/add-notice', [MainController::class, 'add_notice'])->name('auth.add-notice');
-Route::post('/auth/add-cwork', [MainController::class, 'add_cwork'])->name('auth.add-cwork');
+// Route::post('/auth/add-cwork', [MainController::class, 'add_cwork'])->name('auth.add-cwork');
+Route::post('/reg_unit/{id}', [MainController::class, 'reg_unit']);
+Route::get('/course/{id}', [MainController::class, 'course']);
+Route::post('/add-work/{id}', [MainController::class, 'add_cwork']);
+Route::get('delete-work/{id}', [MainController::class, 'delete_work']);
+Route::get('delete-staff/{id}', [MainController::class, 'delete_staff']);

@@ -94,21 +94,6 @@
                                 <input type="password" class="address form-control w-100" name="password" id="password">
                             </div>
 
-                            <div class="s-input w-100">
-                                <label>Submit a copy of the following documents: </label>
-                            </div>
-                            <div class="split-input w-100 p-0">
-                                <div class="s-input w-100">
-                                    <label for="b_cert">Birth certificate :</label>
-                                    <input type="file" class="b_cert form-control w-100" name="b_cert" id="b_cert">
-                                </div>
-                                <div class="s-input w-100">
-                                    <label for="passport">Passport Photo :</label>
-                                    <input type="file" class="passport form-control w-100" name="passport" id="passport">
-                                </div>
-                            </div>
-
-
                         </div>
 
                         <div class="secondary-data w-50">

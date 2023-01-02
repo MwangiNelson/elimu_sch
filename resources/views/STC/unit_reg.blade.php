@@ -37,6 +37,17 @@
         <a href="student"> <button class="back-btn"><i class="fa-solid fa-arrow-left pe-3"></i>BACK</button></a>
     </div>
     <section class="main-section w-100 m-0">
+        @if(Session::get('success'))
+        <div class="alert alert-success">
+            {{ Session::get('success') }}
+        </div>
+        @endif
+
+        @if(Session::get('fail'))
+        <div class="alert alert-danger">
+            {{ Session::get('fail') }}
+        </div>
+        @endif
         <div class="header w-75">
             <h3>AVAILABLE COURSES</h3>
             <hr>
@@ -49,7 +60,7 @@
                     <h4>{{$item->unit_name}}</h4>
                     <p>Chapters: <span class="chapters">{{$item->unit_chapters}}</span></p>
                 </div>
-                <button id="{{$item->unit_name}}" class="register-btn">REGISTER</button>
+                <form action="{{url('reg_unit/'.$item->id )}}" method="post">@csrf<button class="register-btn">REGISTER</button></form>
             </div>
             @endforeach
         </div>
